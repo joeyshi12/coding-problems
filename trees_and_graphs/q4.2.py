@@ -29,7 +29,6 @@ class TestCreateMinimalTree(unittest.TestCase):
     def test_non_trivial(self):
         nums = [0, 1, 2, 3, 4, 5, 6]
         result = create_minimal_tree(nums)
-        print(result.left.val)
         self.assertIsBinarySearchTree(result)
 
     def assertIsBinarySearchTree(self, node):

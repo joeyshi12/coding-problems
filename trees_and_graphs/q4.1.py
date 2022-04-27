@@ -7,7 +7,6 @@ class Node:
         self.neighbours = neighbours if neighbours else []
 
 def route_exists(u: Node, v: Node) -> bool:
-    # TODO: optimize with bidirectional search
     if u is None or v is None:
         return False
     return path_to_target_exists(u, v.name) \
@@ -18,15 +17,15 @@ def path_to_target_exists(u, target):
         return False
     visited = set()
     queue = deque()
-    visited.add(u.name)
+    visited.add(u)
     queue.append(u)
     while queue:
         p = queue.popleft()
         for node in p.neighbours:
             if node.name == target:
                 return True
-            if node.name not in visited:
-                visited.add(node.name)
+            if node not in visited:
+                visited.add(node)
                 queue.append(node)
     return False
 
