@@ -10,21 +10,21 @@ def zero_matrix(M):
     for i in range(m):
         for j in range(n):
             if M[i][j] == 0 and i not in zero_rows and j not in zero_cols:
-                zero_row(M, i, zero_rows, zero_cols)
+                zero_matrix_row(M, i, zero_rows, zero_cols)
     return M
 
-def zero_row(M, i, zero_rows, zero_cols):
+def zero_matrix_row(M, i, zero_rows, zero_cols):
     zero_rows.add(i)
     for j in range(len(M[0])):
         if M[i][j] == 0 and j not in zero_cols:
-            zero_col(M, j, zero_rows, zero_cols)
+            zero_matrix_col(M, j, zero_rows, zero_cols)
         M[i][j] = 0
 
-def zero_col(M, j, zero_rows, zero_cols):
+def zero_matrix_col(M, j, zero_rows, zero_cols):
     zero_cols.add(j)
     for i in range(len(M)):
         if M[i][j] == 0 and i not in zero_rows:
-            zero_row(M, i, zero_rows, zero_cols)
+            zero_matrix_row(M, i, zero_rows, zero_cols)
         M[i][j] = 0
 
 def validate_matrix(M):
@@ -50,7 +50,7 @@ class TestZeroMatrix(unittest.TestCase):
                     [0, 3]]
         self.assertMatrixEqual(result, expected)
 
-    def test_non_trivial(self):
+    def test_multiple_zeros_in_row(self):
         matrix = [[0, 1, 0, 3],
                   [4, 5, 6, 7],
                   [8, 9, 1, 2]]
@@ -58,6 +58,26 @@ class TestZeroMatrix(unittest.TestCase):
         expected = [[0, 0, 0, 0],
                     [0, 5, 0, 7],
                     [0, 9, 0, 2]]
+        self.assertMatrixEqual(result, expected)
+
+    def test_multiple_zeros_in_col(self):
+        matrix = [[1, 1, 0, 3],
+                  [2, 5, 6, 7],
+                  [8, 9, 0, 2]]
+        result = zero_matrix(matrix)
+        expected = [[0, 0, 0, 0],
+                    [2, 5, 0, 7],
+                    [0, 0, 0, 0]]
+        self.assertMatrixEqual(result, expected)
+
+    def test_multiple_zeros(self):
+        matrix = [[1, 1, 0, 3],
+                  [2, 5, 6, 7],
+                  [0, 9, 1, 2]]
+        result = zero_matrix(matrix)
+        expected = [[0, 0, 0, 0],
+                    [0, 5, 0, 7],
+                    [0, 0, 0, 0]]
         self.assertMatrixEqual(result, expected)
 
     def assertMatrixEqual(self, actual, expected):
