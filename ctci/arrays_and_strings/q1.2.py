@@ -1,6 +1,6 @@
 import unittest
 
-def check_permutation(a, b):
+def check_permutation(a: str, b: str) -> bool:
     if len(a) != len(b):
         return False
     counts = {}

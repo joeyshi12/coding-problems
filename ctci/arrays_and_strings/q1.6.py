@@ -1,6 +1,6 @@
 import unittest
 
-def compress_string(s):
+def compress_string(s: str) -> str:
     cs = ""
     char_idx = 0
     for i in range(1, len(s) + 1):

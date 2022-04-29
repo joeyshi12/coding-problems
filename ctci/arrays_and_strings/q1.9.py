@@ -1,18 +1,19 @@
 import unittest
 
-def is_string_rotation(s1, s2):
+def is_string_rotation(s1: str, s2: str) -> bool:
+    # TODO: implement optimal solution
     if len(s1) != len(s2):
         return False
     return True
 
-#def is_string_rotation(s1, s2):
-#    # TODO: find more optimal solution
+#def is_string_rotation(s1: str, s2: str) -> bool:
+#    # Time complexity: O((m + n)^2)
 #    if len(s1) != len(s2):
 #        return False
 #    for i in range(1, len(s1)):
 #        if s1[i:] in s2 and s1[:i] in s2:
 #            return True
-#    return False # O((m+n)^2)
+#    return False
 
 class TestIsStringRotation(unittest.TestCase):
     # TODO: add more tests

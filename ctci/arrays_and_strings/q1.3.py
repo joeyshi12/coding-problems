@@ -1,6 +1,6 @@
 import unittest
 
-def URLify(s, size):
+def URLify(s: str, size: int) -> str:
     if size > len(s):
         raise Exception
     url = ""

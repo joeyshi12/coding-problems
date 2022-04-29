@@ -1,3 +1,4 @@
+from typing import List
 import unittest
 
 class Node:
@@ -6,12 +7,12 @@ class Node:
         self.left = left
         self.right = right
 
-def create_minimal_tree(nums):
+def create_minimal_tree(nums: List[int]) -> Node:
     if not nums:
         return None
     return create_minimal_tree_helper(nums, 0, len(nums) - 1)
 
-def create_minimal_tree_helper(nums, start, end):
+def create_minimal_tree_helper(nums: List[int], start: int, end: int) -> Node:
     if start > end:
         return None
     m = (start + end + 1) // 2
@@ -31,7 +32,7 @@ class TestCreateMinimalTree(unittest.TestCase):
         result = create_minimal_tree(nums)
         self.assertIsBinarySearchTree(result)
 
-    def assertIsBinarySearchTree(self, node):
+    def assertIsBinarySearchTree(self, node: Node):
         if not node:
             return
         if node.left:

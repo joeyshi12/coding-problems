@@ -12,7 +12,7 @@ def route_exists(u: Node, v: Node) -> bool:
     return path_to_target_exists(u, v.name) \
         or path_to_target_exists(v, u.name)
 
-def path_to_target_exists(u, target):
+def path_to_target_exists(u: Node, target: str) -> bool:
     if u is None:
         return False
     visited = set()

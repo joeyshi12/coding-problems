@@ -1,6 +1,6 @@
 import unittest
 
-def is_one_edit_away(s1, s2):
+def is_one_edit_away(s1: str, s2: str) -> bool:
     diff = len(s1) - len(s2)
     if diff == 0:
         i = find_mismatch_index(s1, s2)
@@ -14,7 +14,7 @@ def is_one_edit_away(s1, s2):
     else:
         return False
 
-def find_mismatch_index(s1, s2):
+def find_mismatch_index(s1: str, s2: str) -> int:
     if s1 == s2:
         return -1
     m = min(len(s1), len(s2))

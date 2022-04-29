@@ -1,6 +1,7 @@
+from typing import List
 import unittest
 
-def rotate_matrix(M):
+def rotate_matrix(M: List[List[int]]) -> List[List[int]]:
     validate_square(M)
     transpose(M)
     n = len(M)
@@ -8,13 +9,13 @@ def rotate_matrix(M):
         M[i], M[n - 1 - i] = M[n - 1 - i], M[i]
     return M
 
-def transpose(M):
+def transpose(M: List[List[int]]) -> None:
     n = len(M)
     for i in range(n):
         for j in range(i + 1, n):
             M[i][j], M[j][i] = M[j][i], M[i][j]
 
-def validate_square(M):
+def validate_square(M: List[List[int]]) -> None:
     n = len(M)
     for row in M:
         if len(row) != n:
@@ -49,11 +50,11 @@ class TestRotateMatrix(unittest.TestCase):
                     [0, 3, 6]]
         self.assertMatrixEqual(result, expected)
 
-    def assertMatrixEqual(self, actual, expected):
-        n = 0 if len(actual) == 0 else len(actual[0])
+    def assertMatrixEqual(self, actual: List[List[int]], expected: List[List[int]]):
+        validate_square(actual)
+        validate_square(expected)
         self.assertEqual(len(actual), len(expected))
         for row1, row2 in zip(actual, expected):
-            self.assertEqual(len(row1), len(row2))
             for a, b in zip(row1, row2):
                 self.assertEqual(a, b)
 

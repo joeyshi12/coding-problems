@@ -6,7 +6,7 @@ class Node:
         self.left = left
         self.right = right
 
-def validate_bst(node):
+def validate_bst(node: Node) -> bool:
     if node is None:
         return True
     if node.left and node.left.val > node.val:

@@ -1,6 +1,7 @@
+from typing import List, Set
 import unittest
 
-def zero_matrix(M):
+def zero_matrix(M: List[List[int]]) -> List[List[int]]:
     validate_matrix(M)
     if len(M) == 0 or len(M[0]) == 0:
         return M
@@ -13,14 +14,14 @@ def zero_matrix(M):
                 zero_matrix_row(M, i, zero_rows, zero_cols)
     return M
 
-def zero_matrix_row(M, i, zero_rows, zero_cols):
+def zero_matrix_row(M: List[List[int]], i: int, zero_rows: Set[int], zero_cols: Set[int]) -> None:
     zero_rows.add(i)
     for j in range(len(M[0])):
         if M[i][j] == 0 and j not in zero_cols:
             zero_matrix_col(M, j, zero_rows, zero_cols)
         M[i][j] = 0
 
-def zero_matrix_col(M, j, zero_rows, zero_cols):
+def zero_matrix_col(M: List[List[int]], j: int, zero_rows: Set[int], zero_cols: Set[int]) -> None:
     zero_cols.add(j)
     for i in range(len(M)):
         if M[i][j] == 0 and i not in zero_rows:
@@ -80,11 +81,14 @@ class TestZeroMatrix(unittest.TestCase):
                     [0, 0, 0, 0]]
         self.assertMatrixEqual(result, expected)
 
-    def assertMatrixEqual(self, actual, expected):
-        n = 0 if len(actual) == 0 else len(actual[0])
+    def assertMatrixEqual(self, actual: List[List[int]], expected: List[List[int]]):
         self.assertEqual(len(actual), len(expected))
+        if not actual:
+            return
+        cols = len(actual[0])
         for row1, row2 in zip(actual, expected):
-            self.assertEqual(len(row1), len(row2))
+            self.assertEqual(len(row1), cols)
+            self.assertEqual(len(row2), cols)
             for a, b in zip(row1, row2):
                 self.assertEqual(a, b)
 

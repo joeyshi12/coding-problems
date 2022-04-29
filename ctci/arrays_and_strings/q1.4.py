@@ -1,6 +1,6 @@
 import unittest
 
-def is_palindrome_permutation(s):
+def is_palindrome_permutation(s: str) -> bool:
     counts = {}
     for c in s.lower():
         if c != " ":

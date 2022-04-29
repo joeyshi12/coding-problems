@@ -1,3 +1,4 @@
+from typing import List
 from collections import deque
 import unittest
 
@@ -8,14 +9,14 @@ class BTNode:
         self.right = right
 
 class LLNode:
-    def __init__(self, val, next_node=None):
-        self.val = val
+    def __init__(self, data, next_node=None):
+        self.data = data
         self.next_node = next_node
 
-def create_depth_list(root: BTNode):
+def create_depth_list(root: BTNode) -> List[LLNode]:
     # TODO: implement
-    if root is None:
-        return root
+    if not root:
+        return []
 
     queue = deque()
     visited = set()
@@ -37,9 +38,9 @@ def create_depth_list(root: BTNode):
             visited.add(p.right)
             queue.append(p.right)
 
-    return None
+    return []
 
 class TestCreateDepthList(unittest.TestCase):
     def test_null(self):
         result = create_depth_list(None)
-        self.assertEqual(result, None)
+        self.assertListEqual(result, [])
