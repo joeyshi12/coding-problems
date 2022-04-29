@@ -1,4 +1,6 @@
-from typing import List, Callable
+# https://leetcode.com/problems/search-in-rotated-sorted-array/
+
+from typing import List
 import unittest
 
 def search(nums: List[int], target: int) -> int:
