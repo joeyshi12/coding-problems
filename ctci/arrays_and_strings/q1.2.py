@@ -7,7 +7,7 @@ def check_permutation(a, b):
     for valA, valB in zip(a, b):
         counts[valA] = counts.get(valA, 0) + 1
         counts[valB] = counts.get(valB, 0) - 1
-    return not any(count != 0 for count in counts.values())
+    return all(count == 0 for count in counts.values())
 
 class TestCheckPermutation(unittest.TestCase):
     TEST_DATA = [
