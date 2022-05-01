@@ -1,19 +1,21 @@
 # https://leetcode.com/problems/pascals-triangle-ii/submissions/
 
 from typing import List
+import unittest
 
 def get_row(row_index: int) -> List[int]:
-    row = [1] * (row_index + 1)
-    i = 1
-    j = row_index
-    top = j
-    bot = i
-    for i in range(1, (row_index + 1) // 2 + 1):
-        row[i] = row[-1-i] = top // bot
-        i += 1
-        j -= 1
-        top *= j
-        bot *= i
+    row = [0] * (row_index + 1)
+    numerator = 1
+    denominator = 1
+    for i in range((row_index + 1) // 2 + 1):
+        row[i] = row[-1-i] = numerator // denominator
+        numerator *= row_index - i
+        denominator *= i
     return row
 
-# TODO: add tests
+class TestGetRow(unittest.TestCase):
+    # TODO: add tests
+    pass
+
+if __name__ == "__main__":
+    unittest.main()
