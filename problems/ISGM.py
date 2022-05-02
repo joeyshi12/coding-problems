@@ -21,7 +21,7 @@ class Edge:
         self.dest = dest
 
 def assign(graph: List[Node]) -> Dict[Node, int]:
-    # TODO: implement + add tests
+    # TODO: add tests + implement
     assignment = {node: -1 for node in graph}
     return assignment
 
