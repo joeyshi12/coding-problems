@@ -8,13 +8,12 @@ def mod_inverse(c: int, n: int) -> int:
             return i
     return -1
 
-def to_flag_char(num: str):
-    return CHAR_MAP[mod_inverse(int(num) % 41, 41)]
+def to_flag_char(num: int) -> str:
+    return CHAR_MAP[mod_inverse(num % 41, 41)]
 
 def main():
     with open("message.txt") as file:
-        nums = filter(lambda s: s.isdigit(), file.read().split(" "))
-        flag = map(to_flag_char, nums)
+        flag = [to_flag_char(int(s)) for s in file.read().split()]
         print("".join(flag))
 
 if __name__ == "__main__":

@@ -3,9 +3,7 @@
 CHAR_MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
 
 def decrypt(message: str) -> str:
-    nums = filter(lambda s: s.isdigit(), message.split(" "))
-    decrypted = map(lambda s: CHAR_MAP[int(s) % len(CHAR_MAP)], nums)
-    return "".join(decrypted)
+    return "".join([CHAR_MAP[int(s) % len(CHAR_MAP)] for s in message.split()])
 
 def main():
     with open("message.txt") as file:
