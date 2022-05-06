@@ -2,7 +2,7 @@
 Given an undirected graph G = (V,E) with vertices V and edges E,
 an integer (positive, zero, or negative) weight h_v for each v∈ V,
 and an integer (positive, zero, or negative) weight J_{u,v} for each edge {u,v}∈ E,
-find an assignment of +1 or −1 to the variables xv for each v∈ V
+find an assignment of +1 or −1 to the variables x_v for each v∈ V
 that minimizes the objective function:
 
 (sum_{v∈ V} h_v*x_v) + (sum_{(u,v)∈ E} J_{u,v} * x_u * x_v)

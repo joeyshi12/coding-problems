@@ -4,9 +4,7 @@ from typing import List
 import unittest
 
 def generate_matrix(n: int) -> List[List[int]]:
-    matrix = [None] * n
-    for i in range(n):
-        matrix[i] = [0] * n
+    matrix = [[0] * n for _ in range(n)]
     populate_right(0, 0, matrix, 1)
     return matrix
 
