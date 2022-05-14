@@ -2,31 +2,28 @@
 
 import unittest
 
+
 def backspace_compare(s: str, t: str) -> bool:
-    skips_s = 0
-    skips_t = 0
-    i = len(s) - 1
-    j = len(t) - 1
-    while i >= 0 or j >= 0:
-        while i >= 0 and (skips_s > 0 or s[i] == "#"):
-            if s[i] == "#":
-                skips_s += 1
-            elif skips_s > 0:
-                skips_s -= 1
-            i -= 1
-        while j >= 0 and (skips_t > 0 or t[j] == "#"):
-            if t[j] == "#":
-                skips_t += 1
-            elif skips_t > 0:
-                skips_t -= 1
-            j -= 1
-        if (i >= 0 and j < 0) or (i < 0 and j >= 0):
-            return False
-        if i >= 0 and j >= 0 and s[i] != t[j]:
-            return False
-        i -= 1
-        j -= 1
-    return True
+    return __backspace_compare(s, t, len(s) - 1, len(t) - 1, 0, 0)
+
+
+def __backspace_compare(s: str, t: str, i: int, j: int, skips_s: int, skips_t: int) -> bool:
+    if i < 0 and j < 0:
+        return True
+    if i >= 0:
+        if s[i] == "#":
+            return __backspace_compare(s, t, i - 1, j, skips_s + 1, skips_t)
+        if skips_s > 0:
+            return __backspace_compare(s, t, i - 1, j, skips_s - 1, skips_t)
+    if j >= 0:
+        if t[j] == "#":
+            return __backspace_compare(s, t, i, j - 1, skips_s, skips_t + 1)
+        if skips_t > 0:
+            return __backspace_compare(s, t, i, j - 1, skips_s, skips_t - 1)
+    if (i < 0 and j >= 0) or (i >= 0 and j < 0) or s[i] != t[j]:
+        return False
+    return __backspace_compare(s, t, i - 1, j - 1, skips_s, skips_t)
+
 
 class TestBackspaceCompare(unittest.TestCase):
     TEST_DATA = [
