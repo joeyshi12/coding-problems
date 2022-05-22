@@ -7,19 +7,15 @@ def palindromic_substrings(s: str) -> int:
     # TODO: this is terrible, do better
     count = len(s)
     for i in range(len(s) - 1):
-        r = 0
-        while s[i - r] == s[i + 1 + r]:
-            count += 1
-            r += 1
-            if i - r < 0 or i + 1 + r >= len(s):
+        for r in range(min(i + 1, len(s) - i - 1)):
+            if s[i - r] == s[i + 1 + r]:
+                count += 1
+            else:
                 break
-        if i == 0:
-            continue
-        r = 0
-        while s[i - 1 - r] == s[i + 1 + r]:
-            count += 1
-            r += 1
-            if i - 1 - r < 0 or i + 1 + r >= len(s):
+        for r in range(min(i, len(s) - i - 1)):
+            if s[i - 1 - r] == s[i + 1 + r]:
+                count += 1
+            else:
                 break
     return count
 
