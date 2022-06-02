@@ -13,9 +13,8 @@ def decrypt(s: str) -> str:
     return "".join(chars)
 
 def main():
-    with open("enc") as file:
-        encrypted_flag = file.read()
-        print(decrypt(encrypted_flag))
+    with open("enc") as f:
+        print(decrypt(f.read()))
 
 if __name__ == "__main__":
     main()
