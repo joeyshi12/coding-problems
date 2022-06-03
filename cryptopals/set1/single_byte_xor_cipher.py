@@ -2,7 +2,6 @@
 
 from typing import Tuple
 import string
-import base64
 
 
 def get_score(message: bytes):
@@ -20,23 +19,25 @@ def get_score(message: bytes):
     return score
 
 
-def decrypt_single_char_xor(ciphertext: bytes) -> Tuple[bytes, int]:
+def decrypt_single_char_xor(ciphertext: bytes) -> Tuple[bytes, int, int]:
     message_bytes = b""
+    key = -1
     best_score = -1
     for i in range(256):
         byte_str = bytes([byte ^ i for byte in ciphertext])
         score = get_score(byte_str)
         if score > best_score:
             message_bytes = byte_str
+            key = i
             best_score = score
-    return message_bytes, best_score
+    return message_bytes, key, best_score
 
 
 def main():
-    hex_string = b"1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
-    ciphertext = base64.b16decode(hex_string, casefold=True)
+    hex_string = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
+    ciphertext = bytes.fromhex(hex_string)
 
-    byte_string, _ = decrypt_single_char_xor(ciphertext)
+    byte_string, _, _ = decrypt_single_char_xor(ciphertext)
     print(byte_string.decode("ascii"))
 
 

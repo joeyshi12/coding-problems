@@ -13,7 +13,7 @@ def main():
     message = b""
     best_score = -1
     for s in strs:
-        text, score = decrypt_single_char_xor(base64.b16decode(s, casefold=True))
+        text, _, score = decrypt_single_char_xor(base64.b16decode(s, casefold=True))
         if score > best_score:
             s_max = s
             message = text
