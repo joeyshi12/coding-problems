@@ -3,10 +3,10 @@ Given an array of at least 3 points from the xy plane stored in counter-clockwis
 find the point with the largest y-coordinate within O(log(n)) runtime.
 """
 
+import unittest
 from typing import List
 from enum import Enum, auto
 import numpy as np
-import unittest
 
 
 class Trend(Enum):
@@ -28,8 +28,8 @@ def find_top(points: List[List[float]], low: int, high: int) -> int:
     return find_top(points, low, p - 1)
 
 def trend(points: List[List[float]], i: int) -> Trend:
-    forward = points[0] if i == len(points) - 1 else points[i + 1]
-    back = points[-1] if i == 0 else points[i - 1]
+    forward = points[(i + 1) % len(points)]
+    back = points[(i - 1) % len(points)]
     if points[i][1] < back[1]:
         if points[i][1] < forward[1]:
             return Trend.BOTTOM
