@@ -1,6 +1,9 @@
+# Break repeating-key XOR
+# https://cryptopals.com/sets/1/challenges/6
+
 import base64
 from typing import List, Tuple
-from single_byte_xor_cipher import decrypt_single_char_xor
+import challenge_03
 
 
 def hamming_distance(s1: bytes, s2: bytes) -> int:
@@ -24,7 +27,7 @@ def sort_key_sizes(ciphertext: bytes) -> List[Tuple[float, int]]:
 
 
 def main():
-    # TODO: make this work
+    # TODO
     ciphertext = b""
     with open("6.txt", encoding="utf-8") as f:
         ciphertext = base64.b64decode("".join(f.read().split()))
@@ -39,7 +42,7 @@ def main():
             bytes([ciphertext[i * key_size + j] for i in range(len(ciphertext) // key_size)])
             for j in range(key_size)
         ]
-        key = [decrypt_single_char_xor(text)[1] for text in single_byte_xor_strings]
+        key = [challenge_03.decrypt_single_char_xor(text)[1] for text in single_byte_xor_strings]
         plaintext = bytes([c ^ key[(i + 2) % len(key)] for i, c in enumerate(ciphertext)])
         print(plaintext)
 

@@ -1,10 +1,11 @@
+# Single-byte XOR cipher
 # https://cryptopals.com/sets/1/challenges/3
 
 from typing import Tuple
 import string
 
 
-def get_score(message: bytes):
+def get_score(message: bytes) -> float:
     score = 0
     for byte in message:
         c = chr(byte)
@@ -19,7 +20,7 @@ def get_score(message: bytes):
     return score
 
 
-def decrypt_single_char_xor(ciphertext: bytes) -> Tuple[bytes, int, int]:
+def decrypt_single_char_xor(ciphertext: bytes) -> Tuple[bytes, int, float]:
     message_bytes = b""
     key = -1
     best_score = -1
@@ -36,7 +37,6 @@ def decrypt_single_char_xor(ciphertext: bytes) -> Tuple[bytes, int, int]:
 def main():
     hex_string = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"
     ciphertext = bytes.fromhex(hex_string)
-
     byte_string, _, _ = decrypt_single_char_xor(ciphertext)
     print(byte_string.decode("ascii"))
 
