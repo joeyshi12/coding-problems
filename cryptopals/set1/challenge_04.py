@@ -6,7 +6,7 @@ import challenge_03
 
 
 strs = []
-with open("./c04_cipher.txt", encoding="utf-8") as f:
+with open("./4.txt", encoding="utf-8") as f:
     strs = f.read().split()
 
 s_max = ""

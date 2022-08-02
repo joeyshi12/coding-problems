@@ -2,7 +2,7 @@
 # https://cryptopals.com/sets/1/challenges/6
 
 import base64
-from typing import List, Tuple
+from typing import List
 import challenge_03
 
 
@@ -17,34 +17,43 @@ def hamming_distance(s1: bytes, s2: bytes) -> int:
     return dist
 
 
-def sort_key_sizes(ciphertext: bytes) -> List[Tuple[float, int]]:
+def sorted_key_sizes(ciphertext: bytes) -> List[int]:
+    # TODO: improve so that correct key size appears closer to top
     key_sizes = []
     for key_size in range(2, 41):
         dist = hamming_distance(ciphertext[:key_size], ciphertext[key_size:2 * key_size])
-        key_sizes.append((dist / key_size, key_size))
-    key_sizes.sort(reverse=True)
-    return key_sizes
+        normalized_dist = dist / key_size
+        key_sizes.append((normalized_dist, key_size))
+    key_sizes.sort()
+    return [key for _, key in key_sizes]
+
+
+def decrypt_repeating_key_xor(ciphertext: bytes, key_size: int) -> bytes:
+    num_blocks = len(ciphertext) // key_size
+    key = []
+    for j in range(key_size):
+        cipher_bytes = bytes([ciphertext[i * key_size + j] for i in range(num_blocks)])
+        single_char_xor_key = challenge_03.decrypt_single_char_xor(cipher_bytes)[1]
+        key.append(single_char_xor_key)
+
+    plaintext = [0] * len(ciphertext)
+    for i, _ in enumerate(ciphertext):
+        plaintext[i] = ciphertext[i] ^ key[i % key_size]
+
+    return bytes(plaintext)
 
 
 def main():
-    # TODO
-    ciphertext = b""
-    with open("6.txt", encoding="utf-8") as f:
+    with open("./6.txt", encoding="utf-8") as f:
         ciphertext = base64.b64decode("".join(f.read().split()))
 
-    key_sizes = sort_key_sizes(ciphertext)
-    max_iters = 4
-    for _ in range(max_iters):
-        if not key_sizes:
-            break
-        _, key_size = key_sizes.pop()
-        single_byte_xor_strings = [
-            bytes([ciphertext[i * key_size + j] for i in range(len(ciphertext) // key_size)])
-            for j in range(key_size)
-        ]
-        key = [challenge_03.decrypt_single_char_xor(text)[1] for text in single_byte_xor_strings]
-        plaintext = bytes([c ^ key[(i + 2) % len(key)] for i, c in enumerate(ciphertext)])
-        print(plaintext)
+    #for key_size in sorted_key_sizes(ciphertext):
+    #    message = decrypt_repeating_key_xor(ciphertext, key_size)
+    #    print(key_size)
+    #    print(message[:32])
+
+    message = decrypt_repeating_key_xor(ciphertext, 29)
+    print(message)
 
 
 if __name__ == "__main__":
