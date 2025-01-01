@@ -1,0 +1,14 @@
+curl 'http://mercury.picoctf.net:52362/' \
+    -H 'User-Agent: PicoBrowser' \
+    -H 'Accept: */*' \
+    -H 'Accept-Language: en-US,en;q=0.5' \
+    -H 'Accept-Encoding: gzip, deflate' \
+    -H 'Referer: http://mercury.picoctf.net:52362/' \
+    -H 'Connection: keep-alive' \
+    -H 'Priority: u=4' \
+    -H 'Pragma: no-cache' \
+    -H 'Cache-Control: no-cache' \
+    -H 'Date: Tue, 15 Nov 2018 08:12:31 GMT' \
+    -H 'DNT: 1' \
+    -H 'X-Forwarded-For: 102.177.146.10' \
+    -H 'Accept-Language: sv_SE'
