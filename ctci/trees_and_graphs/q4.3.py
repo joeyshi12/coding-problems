@@ -1,6 +1,5 @@
-from typing import List
-from collections import deque
 import unittest
+from typing import List, Optional
 
 class BTNode:
     def __init__(self, val, left=None, right=None):
@@ -13,34 +12,50 @@ class LLNode:
         self.data = data
         self.next_node = next_node
 
-def create_depth_list(root: BTNode) -> List[LLNode]:
-    # TODO: implement
-    if not root:
+def create_depth_list(root: Optional[BTNode]) -> List[LLNode]:
+    if root is None:
         return []
 
-    queue = deque()
-    visited = set()
-    queue.append(root)
-    visited.add(root)
+    depth_list = []
+    level = [root]
+    while len(level) > 0:
+        depth_node = LLNode(level[0].val)
+        curr_node = depth_node
+        for i in range(1, len(level)):
+            curr_node.next_node = LLNode(level[i].val)
+            curr_node = curr_node.next_node
 
-    curr_head = LLNode(root.val)
-    level = 0
-    remaining = 1
+        depth_list.append(depth_node)
 
-    while queue:
-        p = queue.popleft()
+        next_level = []
+        for node in level:
+            if node.left:
+                next_level.append(node.left)
+            if node.right:
+                next_level.append(node.right)
 
-        if p.left and p.left not in visited:
-            visited.add(p.left)
-            queue.append(p.left)
+        level = next_level
 
-        if p.right and p.right not in visited:
-            visited.add(p.right)
-            queue.append(p.right)
+    return depth_list
 
-    return []
 
 class TestCreateDepthList(unittest.TestCase):
     def test_null(self):
-        result = create_depth_list(None)
-        self.assertListEqual(result, [])
+        depth_list = create_depth_list(None)
+        self.assertListEqual(depth_list, [])
+
+    def test_btree(self):
+        btree = BTNode(1, BTNode(2, BTNode(4)), BTNode(3, right=BTNode(5)))
+        depth_list = create_depth_list(btree)
+        depth_values = []
+        for depth_node in depth_list:
+            values = []
+            while depth_node is not None:
+                values.append(depth_node.data)
+                depth_node = depth_node.next_node
+            depth_values.append(values)
+        self.assertEqual(depth_values, [[1], [2, 3], [4, 5]])
+
+
+if __name__ == "__main__":
+    unittest.main()

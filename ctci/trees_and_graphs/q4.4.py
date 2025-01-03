@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 import unittest
 
 class Node:
@@ -12,7 +12,7 @@ def check_balanced(root: Node) -> bool:
     compute_heights(root, heights)
     return check_balanced_helper(root, heights)
 
-def compute_heights(node: Node, heights: Dict[Node, int]) -> int:
+def compute_heights(node: Optional[Node], heights: Dict[Node, int]) -> int:
     if node is None:
         return 0
 
@@ -30,7 +30,7 @@ def compute_heights(node: Node, heights: Dict[Node, int]) -> int:
 
     return heights[node]
 
-def check_balanced_helper(node: Node, heights: Dict[Node, int]) -> bool:
+def check_balanced_helper(node: Optional[Node], heights: Dict[Node, int]) -> bool:
     if node is None:
         return True
     left_height = heights.get(node.left, 0)

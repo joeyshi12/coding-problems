@@ -1,4 +1,5 @@
 import unittest
+from typing import Optional
 
 
 class Node:
@@ -8,11 +9,11 @@ class Node:
         self.right = right
 
 
-def validate_bst(node: Node) -> bool:
+def validate_bst(node: Optional[Node]) -> bool:
     return is_bst(node, -float("inf"), float("inf"))
 
 
-def is_bst(node: Node, lower: float, upper: float) -> bool:
+def is_bst(node: Optional[Node], lower: float, upper: float) -> bool:
     if node is None:
         return True
     if node.left:
