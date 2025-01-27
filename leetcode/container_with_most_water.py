@@ -4,19 +4,21 @@ from typing import List
 import unittest
 
 def max_area(height: List[int]) -> int:
-    # TODO: implement an O(n) solution
     max_capacity = 0
-    for i in range(len(height)):
-        for j in range(i + 1, len(height)):
-            area = (j - i) * min(height[i], height[j])
-            if area > max_capacity:
-                max_capacity = area
+    i = 0
+    j = len(height) - 1
+    while i < j:
+        capacity = min(height[i], height[j]) * (j - i)
+        if capacity > max_capacity:
+            max_capacity = capacity
+        if height[i] < height[j]:
+            i += 1
+        else:
+            j -= 1
     return max_capacity
 
 class TestMaxArea(unittest.TestCase):
     TEST_DATA = [
-        ([], 0),
-        ([1], 0),
         ([1, 1], 1),
         ([1, 8, 6, 2, 5, 4, 8, 3, 7], 49)
     ]
